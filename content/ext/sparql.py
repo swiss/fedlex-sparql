@@ -60,7 +60,10 @@ def query(query_string, store="L"):
 
     # Convert columns to numeric datatype if possible
     for col in df.columns:
-        df[col] = pd.to_numeric(df[col], errors='ignore')
+        try:
+            df[col] = pd.to_numeric(df[col])
+        except ValueError:
+            pass  # Keeps the original data if conversion fails
     
     return df
 
